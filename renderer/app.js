@@ -8,6 +8,13 @@ let addItem = document.getElementById('add-item')
 let itemUrl = document.getElementById('url')
 let search = document.getElementById('search')
 
+// key up and down to select items
+document.addEventListener('keydown', event => {
+  if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+    items.changeSelection(event.key)
+  }
+})
+
 // filter item with search
 search.addEventListener("keyup", event => {
 
