@@ -17,6 +17,12 @@ document.addEventListener('keydown', event => {
   }
 })
 
+window.newItem = () => {
+  showModal.click()
+}
+
+window.openItem = items.open
+
 // filter item with search
 search.addEventListener("keyup", event => {
 
