@@ -51,8 +51,22 @@ exports.open = () => {
     nodeIntegration=0,
     contextIsolation=1
   `)
-  viewWindow.eval(readerJS)
 
+}
+exports.deleteItem = () => {
+  if (!this.storage.length) return
+  let selectedItem = document.getElementsByClassName('read-item selected')[0]
+  if (selectedItem) {
+    let nextSelected = selectedItem.nextSibling ? selectedItem.nextSibling : selectedItem.previousSibling
+    selectedItem.remove()
+    if (nextSelected) {
+      nextSelected.classList.add('selected')
+    } else {
+      return
+    }
+  } else {
+    return
+  }
 }
 
 exports.addItem = (item, isNew = false ) => {

@@ -12,6 +12,8 @@ let search = document.getElementById('search')
 document.addEventListener('keydown', event => {
   if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
     items.changeSelection(event.key)
+  } else if (event.key === 'Backspace') {
+    items.deleteItem()
   }
 })
 
@@ -70,7 +72,7 @@ itemUrl.addEventListener('keyup', event => {
 // listen for new message from main process
 ipcRenderer.on('new-item-success', (event, newItem) => {
   // display for error checking
-  console.log(newItem)
+  // console.log(newItem)
 
   // add new item
   items.addItem(newItem, true)
