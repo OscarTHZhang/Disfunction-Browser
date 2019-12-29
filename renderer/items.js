@@ -53,20 +53,45 @@ exports.open = () => {
   `)
 
 }
+
+// Delete the select item
 exports.deleteItem = () => {
-  if (!this.storage.length) return
-  let selectedItem = document.getElementsByClassName('read-item selected')[0]
-  if (selectedItem) {
-    let nextSelected = selectedItem.nextSibling ? selectedItem.nextSibling : selectedItem.previousSibling
-    selectedItem.remove()
-    if (nextSelected) {
-      nextSelected.classList.add('selected')
-    } else {
-      return
-    }
-  } else {
-    return
+
+  itemIndex = this.getSelectedItem().index
+
+  // Remove item from DOM
+  items.removeChild( items.childNodes[itemIndex] )
+
+  // Remove from storage
+  this.storage.splice(itemIndex, 1)
+
+  // Persist
+  this.save()
+
+  // Select previous item or new first item if first was deleted
+  if (this.storage.length) {
+
+    // Get new selected item index
+    let newSelectedItemIndex = (itemIndex === 0) ? 0 : itemIndex - 1
+
+    // Set item at new index as selected
+    document.getElementsByClassName('read-item')[newSelectedItemIndex].classList.add('selected')
   }
+}
+
+// get the selectedItem's object and index in localStorage array
+exports.getSelectedItem = () => {
+
+  // Get selected node
+  let currentItem = document.getElementsByClassName('read-item selected')[0]
+
+  // Get item index
+  let itemIndex = 0
+  let child = currentItem
+  while( (child = child.previousSibling) != null ) itemIndex++
+
+  // Return selected item and index
+  return { node: currentItem, index: itemIndex }
 }
 
 exports.addItem = (item, isNew = false ) => {
