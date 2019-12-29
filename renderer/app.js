@@ -12,7 +12,7 @@ let search = document.getElementById('search')
 document.addEventListener('keydown', event => {
   if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
     items.changeSelection(event.key)
-  } else if (event.key === 'Backspace') {
+  } else if (event.key === 'Backspace' && modal.style.display === 'none') {
     items.deleteItem()
   }
 })
